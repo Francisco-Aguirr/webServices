@@ -1,0 +1,19 @@
+{
+  "name": "webservices",
+  "version": "1.0.0",
+  "description": "BYU Web Services Class 2025",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Francisco-Aguirr/webServices.git"
+  },
+  "author": "Francisco Aguirre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Francisco-Aguirr/webServices/issues"
+  },
+  "homepage": "https://github.com/Francisco-Aguirr/webServices#readme"
+}
