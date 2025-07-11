@@ -17,15 +17,26 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://localhost:${port}`,
-        description: 'Development server',
+        url: process.env.RENDER_EXTERNAL_URL || `http://localhost:${port}`,
+        description: process.env.NODE_ENV === 'production' ? 'Production server' : 'Development server',
       },
     ],
   },
-  apis: ['./routes/*.js'], // files containing annotations as above
+  apis: ['./routes/*.js'],
+};
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+
+const cors = require('cors');
+
+//CORS
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? process.env.RENDER_EXTERNAL_URL 
+    : '*',
+  optionsSuccessStatus: 200
 };
 
-const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use(cors(corsOptions));
 
 // Middlewares
 app.use(express.json());
