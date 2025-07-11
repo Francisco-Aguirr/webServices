@@ -1,0 +1,31 @@
+@baseUrl = http://localhost:3000/api
+
+### GET all contacts
+GET {{baseUrl}}/contacts HTTP/1.1
+
+### GET single contact
+GET {{baseUrl}}/contact?id=663f7a9e4c3a4b001f8e9c6a HTTP/1.1
+
+### POST create new contact
+POST {{baseUrl}}/contacts HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "favoriteColor": "blue",
+  "birthday": "1990-01-01"
+}
+
+### PUT update contact
+PUT {{baseUrl}}/contacts/663f7a9e4c3a4b001f8e9c6a HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "John Updated",
+  "lastName": "Doe Updated"
+}
+
+### DELETE contact
+DELETE {{baseUrl}}/contacts/663f7a9e4c3a4b001f8e9c6a HTTP/1.1

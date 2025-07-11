@@ -1,8 +1,31 @@
 require('dotenv').config();
 const express = require('express');
 const { initDb } = require('./data/database');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Swagger configuration
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Contacts API',
+      version: '1.0.0',
+      description: 'API for managing contacts',
+    },
+    servers: [
+      {
+        url: `http://localhost:${port}`,
+        description: 'Development server',
+      },
+    ],
+  },
+  apis: ['./routes/*.js'], // files containing annotations as above
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 // Middlewares
 app.use(express.json());
@@ -11,6 +34,9 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/', require('./routes'));
 app.use('/api', require('./routes/contacts')); 
+
+// Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Error handling
 app.use((err, req, res, next) => {
@@ -28,6 +54,7 @@ initDb((err) => {
   app.listen(port, () => {
     console.log(`Server running on port ${port}`);
     console.log(`Connected to database: ${process.env.MONGODB_URL}`);
+    console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
   });
 });
 

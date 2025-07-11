@@ -15,7 +15,7 @@ const initDb = (callback) => {
   MongoClient.connect(process.env.MONGODB_URL)
     .then((connectedClient) => {
       client = connectedClient;
-      db = client.db(process.env.DB_NAME || 'test'); // Especifica nombre de BD
+      db = client.db(process.env.DB_NAME || 'test'); 
       console.log('Database connected successfully');
       callback(null, db);
     })
